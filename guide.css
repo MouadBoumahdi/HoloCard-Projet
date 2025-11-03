@@ -13,16 +13,17 @@
 
 
 
-.boxx{
+.box{
     position: relative;
     bottom: 13vh;
     height: 100vh;
     opacity: 0.55;
-    background-image: url(/images/jay-dkFJST9zZZo-unsplash.jpg);
+    background-image: url(images/boxbackground.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     z-index: -1;
+  
 }
 
 .section3{
@@ -30,33 +31,6 @@
     justify-content: space-evenly;
 }
 
-
-.section2 div h1{
-    font-size: 25px;
-}
-
-.section2 div{
-    padding: 20px 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 27vw;
-    border: 3px solid #ff5060;
-    text-align: center;
-    gap: 20px 0;
-    border-radius: 15px;
-    background-color: #1f2024;
-    box-shadow: 0 0 20px 5px rgba(255,0,0,0.5);
-}
-
-
-    .section2 div p {
-        width: 25vw;
-    }
-
-    .section2 div span{
-        font-size: 39px;
-    }
 
 .guide ,.guide1{
     text-align: center;
@@ -81,13 +55,40 @@
 
 
 
-@media (max-width:520px){
-    .section2 div{
+
+.section-guide {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 150px;
+}
+
+
+.section-guide .box1:hover {
+    transition: transform 0.5s ease; 
+    transform: translateY(-20px);
+}
+.section-guide .box2:hover {
+    transition: transform 0.3s ease; 
+    transform: translateY(-5px);
+}
+.section-guide .box3:hover {
+    transition: transform 0.3s ease; 
+    transform: translateY(-20px);
+}
+
+
+
+
+.section-guide div h1{
+    font-size: 25px;
+}
+.section-guide div{
+    border: solid;
     padding: 20px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 70vw;
+    width: 25vw;
     border: 3px solid #ff5060;
     text-align: center;
     gap: 15px 0;
@@ -95,15 +96,219 @@
     background-color: #1f2024;
     box-shadow: 0 0 20px 5px rgba(255,0,0,0.5);
 }
+.section-guide div p{
+    width: 22vw;
+    opacity: 0.6;
+}
 
-.section2 div h1{
+.section-guide div span{
+    font-size: 55px;
+}
+
+
+/* section2 */
+
+.section-guide1{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 80px;
+}
+
+
+.section-guide1 div h1{
     font-size: 20px;
 }
-.section2 div p{
-    width: 55vw;
+.section-guide1 div{
+    border: solid;
+    padding: 50px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20vw;
+    text-align: center;
+    gap: 10px 0;
+    border-radius: 15px;
+    background-color: #1f2024;
+}
+.section-guide1 div p{
+    width: 16vw;
+    opacity: 0.6;
+}
+
+.section-guide1 div span{
+    font-size: 55px;
+}
+.section-guide1 div span:nth-of-type(2){
+    font-size: 35px;
+}
+.section-guide1 div span:last-child{
+    font-size: 11px;
+    opacity: 0.7;
+    padding: 20px 65px;
+    border: transparent;
+    background-color: #343537;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.section-guide1 .box1{
+    border: 3px solid;
+}
+.section-guide1 div h1{
+    font-size: 35px;
+
+}
+
+
+.section-guide1 .box2 span:nth-of-type(2){
+    color: #ab80df;
+}
+.section-guide1 .box2 h1{
+    color: #ab80df;
+}
+.section-guide1 .box2{
+    border: 3px solid rgb(171, 128, 223);
+}
+
+
+.section-guide1 .box3 span:nth-of-type(2){
+    color: #953fe5;
+}
+.section-guide1 .box3 h1{
+    color: #953fe5;
+}
+.section-guide1 .box3{
+    border: 3px solid rgb(149, 63, 229);
+}
+
+.section-guide1 .box4 span:nth-of-type(2){
+    color: rgb(240, 202, 0);
+}
+.section-guide1 .box4 h1{
+    color: #f0ca00;
+}
+.section-guide1 .box4{
+    border: 3px solid #f0ca00;
+}
+
+
+
+.section-guide1 .box1:hover {
+    transition: transform 0.3s ease; 
+    transform: translateY(-20px);
+    box-shadow: 0 0 15px 0 rgba(255, 255, 255, 0.7);
+}
+.section-guide1 .box2:hover {
+    transition: transform 0.3s ease; 
+    transform: translateY(-20px);
+    box-shadow: 0 0 15px 0 rgba(171, 128, 223, 0.7);
+}
+
+.section-guide1 .box3:hover {
+    transition: transform 0.5s ease; 
+    transform: translateY(-20px);
+    box-shadow: 0 0 15px 0 rgba(149, 63, 229, 0.7);
+}
+.section-guide1 .box4:hover {
+    transition: transform 0.3s ease; 
+    transform: translateY(-20px);
+    box-shadow: 0 0 15px 0 rgba(240, 202, 0, 0.7);
+
+}
+
+
+
+
+@media (max-width:520px){
+    .section-guide {
+    display: block;
+    width: 100%;
+    
+}
+
+.section-guide div{
+    width: 80vw;
+    margin: 30px auto;
+   
+}
+
+
+.section-guide div p{
+    font-size: 10px;
+    text-align: start;
+    width: 60vw;
     text-align: center;
 }
 
+.section-guide div h1{
+    width: 350px;
+    font-size: 20px;
+}
 
 
+.section-guide1{
+    display: block;
+     width: 100%;
+}
+
+
+.section-guide1 div h1{
+    font-size: 20px;
+    
+}
+#guide{
+    width: 90vw;
+    margin: 0 auto;
+    font-size: 35px;
+}
+
+#guide1{
+    width: 70vw;
+    margin: 0 auto;
+}
+.section-guide1 div{
+    width: 80vw;
+    margin: 30px auto;
+}
+.section-guide1 div p{
+    width: 45vw;
+}
+
+.section-guide1 div span{
+    font-size: 55px;
+}
+.section-guide1 div span:nth-of-type(2){
+    font-size: 35px;
+}
+.section-guide1 div span:last-child{
+    font-size: 11px;
+    opacity: 0.7;
+    padding: 20px 65px;
+    border: transparent;
+    background-color: #343537;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.section-guide1 .box1{
+    border: 3px solid;
+}
+.section-guide1 div h1{
+    font-size: 35px;
+
+}
+}
+
+
+@media (min-width:521px) and (max-width: 1024px) {
+    .section-guide1 {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 30px 0;
+    }
+
+    .section-guide1 div{
+        width: 40vw;
+        padding: 20px 30px;
+    }
 }
