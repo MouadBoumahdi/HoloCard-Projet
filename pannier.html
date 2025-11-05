@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pannier.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Pannier-page</title>
+</head>
+<body>
+  <nav>
+    <h1><a href="">HoloCards</a></h1>
+    <a href="" id="menu"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
+    <ul id="nav-list">
+      <li><a href="">Guide</a></li>
+      <li><a href="">Market</a></li>
+      <li><a href="" class="Play-button">PLAY</a></li>
+      <li><a href="">My Deck</a></li>
+      <li><a href="">Favorite</a></li>
+    </ul>
+    <a href="" class="Card-button">Card</a>
+  </nav>
+
+  <section class="section1" style="margin: 60px 0; position: static;">
+    <h1>PANNIER</h1>
+    <h3>Placage d'une univers epic de strads et cartes à collectionner</h3>
+  </section>
+
+  <section id="pannier" class="pannier">
+    <div id="all"></div>
+
+    <div class="part2-total">
+      <h1 class="h1">Total: 0$</h1>
+    </div>
+  </section>
+<script>
+const all = document.getElementById("all");
+const total = document.querySelector(".h1");
+let pannier = JSON.parse(localStorage.getItem("selectedcart")) || [];
+
+// Show all cards
+pannier.forEach((card) => {
+  const div = document.createElement("div");
+  div.classList.add("part1-pannier");
+
+  div.innerHTML = `
+    <img src="${card.image}" style="width: 100px;">
+    <div class="details-pannier">
+      <p>${card.name}</p>
+      <p>${card.price}$</p>
+    </div>
+    <div class="buttons-pannier ml-auto">
+      <button class="moins">-</button>
+      <span class="qte">1</span>
+      <button class="plus">+</button>
+    </div>
+  `;
+
+  all.appendChild(div);
+
+  const qte = div.querySelector(".qte");
+  const plus = div.querySelector(".plus");
+  const moins = div.querySelector(".moins");
+
+  // increase quantity
+  plus.addEventListener("click", () => {
+    qte.textContent = parseInt(qte.textContent) + 1;
+    updateTotal();
+  });
+
+  // decrease quantity
+  moins.addEventListener("click", () => {
+    let quantity = parseInt(qte.textContent) - 1;
+
+    if (quantity <= 0) {
+      // remove from page
+      div.remove();
+
+      // remove this exact card by name
+      pannier = pannier.filter(item => item.name !== card.name);
+
+      // update localStorage
+      localStorage.setItem("selectedcart", JSON.stringify(pannier));
+    } else {
+      qte.textContent = quantity;
+    }
+
+    updateTotal();
+  });
+});
+
+// calculate total
+function updateTotal() {
+  let text_total = 0;
+  const allItems = document.querySelectorAll(".part1-pannier");
+
+  allItems.forEach((div, i) => {
+    const qte = parseInt(div.querySelector(".qte").textContent);
+    const price = pannier[i]?.price || 0;
+    text_total += price * qte;
+  });
+
+  total.textContent = `Total: ${text_total}$`;
+
+  // save pannier after updating
+  localStorage.setItem("selectedcart", JSON.stringify(pannier));
+}
+
+// show total first
+updateTotal();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap');
+*{
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+ 
+.pannier{
+    display: flex;
+    gap: 30px;
+    margin: 30px 20px;
+    position: relative;
+}
+
+.part1-pannier{
+    border: solid;
+    display: flex;
+    gap: 70px;
+    width: 50vw;
+}
+
+.part1-pannier img{
+    padding: 10px 5px ;
+    margin-left:20px;
+}
+
+.details-pannier{
+    display: flex;
+    flex-direction: column;
+}
+
+.details-pannier p{
+    font-size: 30px;
+}
+
+.part2-total{
+    border: solid;
+}
+
+.buttons-pannier{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    border: solid;
+
+}
+
+.buttons-pannier button{
+    padding: 0px 14px;
+    font-size: 25px;
+    border-radius: 5px;
+}
+
+.buttons-pannier button:nth-of-type(1){
+    background-color: red;
+   
+}
+.buttons-pannier button:nth-of-type(2){
+    background-color: green;
+   
+}
+
+.part2-total{
+    padding: 200px 300px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}

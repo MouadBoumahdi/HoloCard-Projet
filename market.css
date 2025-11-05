@@ -1,0 +1,175 @@
+.box1{
+    position: relative;
+    bottom: 13vh;
+    height: 60vh;
+    opacity: 0.55;
+    background-color: rgba(240, 248, 255, 0.258);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1;
+}
+
+.categories{
+    margin: 0 60px;
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(5,auto);
+}
+
+.categories button{
+    border: solid;
+    padding: 17px 40px;
+    border-radius: 7px;
+    transition: all 0.2s ease-in;
+}
+
+
+.All:hover,.All.active{
+    background-color: rgba(255, 255, 255, 0.329);
+    box-shadow: 0 0 15px 0 rgba(255, 255, 255,0.7);
+}
+
+.COMMUNE{
+    opacity: 0.8;
+}
+.COMMUNE:hover,.COMMUNE.active{
+    background-color: rgba(255, 255, 255, 0.185);
+    box-shadow: 0 0 15px 0 rgba(255, 255, 255,0.7);
+}
+
+
+.RARE{
+    color: rgb(171, 128, 223);
+}
+.RARE:hover,.RARE.active{
+    background-color: rgba(171, 128, 223, 0.237);
+    box-shadow: 0 0 15px 0 rgba(171, 128, 223,0.7);
+}
+
+.EPIQUE{
+    color: rgb(149, 63, 229);
+}
+.EPIQUE:hover,.EPIQUE.active{
+    background-color: rgba(149, 63, 229, 0.244);
+    box-shadow: 0 0 15px 0 rgba(149, 63, 229,0.7);
+}
+
+.LEGENDAIRE{
+    color: rgb(240, 202, 0);
+}
+.LEGENDAIRE:hover,.LEGENDAIRE.active{
+    background-color: rgba(240, 204, 0, 0.256);
+    box-shadow: 0 0 15px 0 rgba(240, 202, 0,0.7);
+}
+
+
+
+
+
+
+
+
+/* card */
+.cards{
+    margin: 30px 70px;
+    display: grid;
+    grid-template-columns: repeat(4,auto);
+    gap: 20px 0;
+    
+}
+.card{
+    margin-left: 10px;
+    border: 3px solid;
+    width: 20vw;
+    overflow: hidden;
+    border-radius: 7px;
+    
+}
+
+.part1{
+    background-color: #a48c61;
+    border: 10px solid #383021;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 7px;
+}
+
+.part1 h3{
+    font-size: 20px;
+    color: black;
+    text-align: center;
+}
+
+.part1 img{
+    border-radius: 7px;
+    border: 7px solid #3e4956;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.7);
+}
+
+
+.details{
+    background-color: #ccad7c;
+    width: 17rem;
+    border: 7px solid #bd6521;
+    position: relative;
+    right: 24px;
+    padding: 10px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+.details .title{
+    font-size: 10px;
+    color: black;
+}
+
+.details .paragraphe{
+    font-size: 10px;
+    color: black;
+    opacity: 0.7;
+}
+
+
+.atk-def{
+    margin-top: 12px;
+    font-size: 10px;
+    position: relative;
+    left: 120px;
+}
+
+
+.atk-def span{
+    color: black;
+}
+
+
+.part2{
+    margin: 10px 10px;
+}
+
+.part2 .price{
+    font-size: 25px;
+}
+
+.part2 button{
+    margin: 10px 0;
+    border-radius: 7px;
+}
+
+.part2 .ajouter{
+    font-size: 13px;
+    padding: 10px 20px;
+    background-color: #ff0000;
+}
+
+.part2 .ajouter.active{
+    cursor: not-allowed;
+}
+.part2 .favorite{
+    font-size: 11px;
+    padding: 10px 29px;
+    margin-left: 10px;
+    border: solid;
+}
