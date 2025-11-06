@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="market.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script></script>
+    <title>Market-page</title>
+</head>
+<body>
+   
+    <nav>
+        <h1><a href="">HoloCards</a></h1>
+        <a href="" id="menu"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
+        <ul id="nav-list">
+            <li><a href="">Guide</a></li>
+            <li><a href="">Market</a></li>
+            <li><a href="" class="Play-button">PLAY</a></li>
+            <li><a href="">My Deck</a></li>
+            <li><a href="">Favorite</a></li>
+        </ul>
+        <a href="" class="Card-button">Card</a>
+    </nav>
+  
+    <div class="box1">
+        
+    </div>
+
+    <section class="section1" style="margin-bottom: 60px;">
+        <h1>Favorite</h1>
+        <h3>Placage d une  univers epic de strads de et cartes a collectionner</h3>
+    </section>
+
+
+
+    <section class="categories">
+        <button class="All active" id="All">TOUTES LES CARTES</button>
+        <button class="COMMUNE" id="Commune">⚪ COMMUNE</button>
+        <button class="RARE" id="Rare">💎 RARE</button>
+        <button class="EPIQUE" id="Epique">👑 EPIQUE</button>
+        <button class="LEGENDAIRE" id="Legendary">🔥 LEGENDAIRE</button>
+    </section>
+
+
+    <section class="cards" id="cards">
+        
+    </section>
+
+
+    <footer>
+        <h1>HoloCards</h1>
+        <p class="paragraphe">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique excepturi porro ex id quas ratione laborum aliquam voluptas eum deleniti!</p>
+        <ul>
+            <li><a href="">Twitter</a></li>
+            <li><a href="">Discord</a></li>
+            <li><a href="">Instagram</a></li>
+        </ul>
+
+        <p class="Copyright">© 2025 Nexus Cards. Tous droits réservés.</p>
+    </footer>
+    
+</body>
+<script>
+    let favorite = JSON.parse(localStorage.getItem("favorites")) || [];
+    let pannier = JSON.parse(localStorage.getItem("selectedcart")) || [];
+    // console.log(favorite);
+
+    const cardscontainer = document.getElementById("cards");
+
+    let All = document.getElementById("All");
+    let Commune = document.getElementById("Commune");
+    let Rare = document.getElementById("Rare");
+    let Epique = document.getElementById("Epique");
+    let Legendary = document.getElementById("Legendary");
+    let buttons = document.querySelectorAll('.categories button');
+
+    // Fonction pour afficher les cartes favorites
+    function displaycards(listcard) {
+        cardscontainer.innerHTML = "";
+        
+        // Si aucune carte à afficher
+        if (listcard.length === 0) {
+            cardscontainer.innerHTML = `
+                <div style="text-align: center; color: white; padding: 50px; width: 100%; margin-left: 50%;">
+                    <i class="fa-regular fa-heart" style="font-size: 100px; color: #666;"></i>
+                    <h2 style="margin-top: 20px;">Aucune carte trouvée</h2>
+                    <p>Aucune carte favorite dans cette catégorie</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // Afficher chaque carte
+        listcard.forEach(card => {
+            const div = document.createElement("div");
+            div.classList.add("card");
+
+            div.innerHTML = `
+            <div class="part1">
+                <h3>${card.name}</h3>
+                <img src="${card.image}" alt="${card.name}">
+                <div class="details">
+                    <p class="title">${card.name}</p>
+                    <p class="paragraphe">${card.description}</p>
+                    <div class="atk-def">
+                        <span>ATK/${card.atk}</span>
+                        <span>DEF/${card.def}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="part2">
+                <p class="price">${card.price}$</p>
+                <button class="ajouter" data-id="${card.id}">
+                    <i class="fas fa-shopping-cart" style="color: #ffffff;"></i>
+                    Ajouter au panier
+                </button>
+                <button class="delete-favorite" data-id="${card.id}">
+                    <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                </button>
+            </div>
+            `;
+
+            cardscontainer.appendChild(div);
+        });
+
+
+        const addButtons = document.querySelectorAll('.ajouter');
+        addButtons.forEach(btn => {
+            btn.onclick = () => {
+                let id = btn.getAttribute('data-id');
+                let select = favorite.find(card => card.id == id);
+                
+                pannier.push(select);
+                localStorage.setItem("selectedcart", JSON.stringify(pannier));
+                
+                alert("Carte ajoutee au panier!");
+            }
+        });
+
+        // supprimer
+        const deleteButtons = document.querySelectorAll('.delete-favorite');
+        deleteButtons.forEach(btn => {
+            btn.onclick = () => {
+                let id = btn.getAttribute('data-id');
+                
+                if (confirm("Voulez-vous supprimer cette carte des favoris?")) {
+                    // Supprimer la carte
+                    favorite = favorite.filter(card => card.id != id);
+                    
+                    localStorage.setItem("favorites", JSON.stringify(favorite));
+                    
+                    // Réafficher les cartes avec le filtre actuel
+                    let activeButton = document.querySelector('.categories button.active');
+                    if (activeButton.id === 'All') {
+                        displaycards(favorite);
+                    } else if (activeButton.id === 'Commune') {
+                        let filter = favorite.filter(card => card.rarity === "Commune");
+                        displaycards(filter);
+                    } else if (activeButton.id === 'Rare') {
+                        let filter = favorite.filter(card => card.rarity === "Rare");
+                        displaycards(filter);
+                    } else if (activeButton.id === 'Epique') {
+                        let filter = favorite.filter(card => card.rarity === "Epique");
+                        displaycards(filter);
+                    } else if (activeButton.id === 'Legendary') {
+                        let filter = favorite.filter(card => card.rarity === "Legendary");
+                        displaycards(filter);
+                    }
+                    
+                    alert("Carte supprimee");
+                }
+            }
+        });
+    }
+
+    displaycards(favorite);
+
+    All.onclick = () => {
+        displaycards(favorite);
+        buttons.forEach(btn => btn.classList.remove('active'));
+        All.classList.add('active');
+    };
+
+    Commune.onclick = () => {
+        let filter = favorite.filter(card => card.rarity === "Commune");
+        displaycards(filter);
+        buttons.forEach(btn => btn.classList.remove('active'));
+        Commune.classList.add('active');
+    };
+
+    Rare.onclick = () => {
+        let filter = favorite.filter(card => card.rarity === "Rare");
+        displaycards(filter);
+        buttons.forEach(btn => btn.classList.remove('active'));
+        Rare.classList.add('active');
+    };
+
+    Epique.onclick = () => {
+        let filter = favorite.filter(card => card.rarity === "Epique");
+        displaycards(filter);
+        buttons.forEach(btn => btn.classList.remove('active'));
+        Epique.classList.add('active');
+    };
+
+    Legendary.onclick = () => {
+        let filter = favorite.filter(card => card.rarity === "Legendary");
+        displaycards(filter);
+        buttons.forEach(btn => btn.classList.remove('active'));
+        Legendary.classList.add('active');
+    };
+</script>
+</html>

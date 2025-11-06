@@ -1,3 +1,4 @@
+// menu
 let menubtn = document.getElementById('menu');
 let navlist = document.getElementById('nav-list');
 
@@ -36,8 +37,35 @@ let navlist = document.getElementById('nav-list');
 
 
 
+// guide faq
+ const questions = document.querySelectorAll('button');
+    
+    questions.forEach((question, index) => {
+        question.onclick = function() {
+            const answer = document.getElementById('answer' + (index + 1));
+            const arrow = question.querySelector('span:last-child');
+            const currentState = question.getAttribute('data-state');
+            
+            if (currentState === 'closed') {
+                answer.classList.remove('hidden');
+                question.setAttribute('data-state', 'open');
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                answer.classList.add('hidden');
+                question.setAttribute('data-state', 'closed');
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        };
+    });
+
+
+
+
+
+// market
+
 const cards = [
-  {id:1, name: "Blue-Eyes White", image: "images/10691144.jpg", atk: 3000, def: 2500, description: "Un dragon mythique doté d'une puissance incroyable et d'une aura glaciale.", price: 500, rarity: "Legendary" ,button:1},
+  {id:1, name: "Blue-Eyes White", image: "images/10691144.jpg", atk: 3000, def: 2500, description: "Un dragon mythique doté d'une puissance incroyable et d'une aura glaciale.", price: 500, rarity: "Legendary"},
   {id:2, name: "Dark Magician", image: "images/72330894.jpg", atk: 2500, def: 2100, description: "Un magicien sombre maître des arcanes qui manipule la magie ancienne.", price: 450, rarity: "Epique" },
   {id:3, name: "Red-Eyes Black", image: "images/64475743.jpg", atk: 2400, def: 2000, description: "Un dragon féroce aux yeux rouges, symbole de colère et de puissance brute.", price: 350, rarity: "Rare" },
   {id:4, name: "Summoned Skull", image: "images/84962466.jpg", atk: 2500, def: 1200, description: "Un démon ténébreux invoqué des profondeurs pour semer la destruction.", price: 280, rarity: "Commune" },
@@ -51,17 +79,25 @@ const cards = [
 
 
 
+const cardscontainer = document.getElementById("cards");
 
-const cardscontainer = document.getElementById("cards")
+// Charger les favoris existants depuis localStorage
+let favorite = JSON.parse(localStorage.getItem("favorites")) || [];
+let pannier = JSON.parse(localStorage.getItem("selectedcart")) || [];
+
+
 
 function displaycards(listcards){
     cardscontainer.innerHTML = "";
     listcards.forEach(card => {
-        const div = document.createElement("div")
+        const div = document.createElement("div");
         div.classList.add("card");
 
+        // Vérifier si la carte est déjà dans les favoris
+        let isFavorite = favorite.find(fav => fav.id == card.id);
+
         div.innerHTML = `
-        <div class = "part1">
+        <div class="part1">
             <h3>${card.name}</h3>
             <img src="${card.image}" alt="${card.name}">
             <div class="details">
@@ -75,18 +111,29 @@ function displaycards(listcards){
         </div>
         <div class="part2">
             <p class="price">${card.price}$</p>
-                <button id="ajouter" data-id="${card.id}" class="ajouter"><i class="fas fa-shopping-cart" style="color: #ffffff;"></i>Ajouter au pannier</button>
-                <button id="save" class="favorite"><i class="fa-regular fa-heart" style="color: #ffffff;"></i></button>
+            <button class="ajouter" data-id="${card.id}">
+                <i class="fas fa-shopping-cart" style="color: #ffffff;"></i>
+                Ajouter au panier
+            </button>
+            <button class="favorite" data-id="${card.id}">
+                <i class="fa-solid fa-heart" style="color: #ffffff;"></i>
+            </button>
         </div>
-        `
+        `;
 
-        cardscontainer.appendChild(div)
-    })
+        cardscontainer.appendChild(div);
+    });
+
+    attachEventListeners();
 }
 
 
-displaycards(cards)
 
+
+
+// categorie
+let categories = document.querySelector('.categories');
+let buttons = categories.querySelectorAll('button');
 
 
 let All = document.getElementById("All");
@@ -95,17 +142,12 @@ let Rare = document.getElementById("Rare");
 let Epique = document.getElementById("Epique");
 let Legendary = document.getElementById("Legendary");
 
-let categories = document.querySelector('.categories');
-let buttons = categories.querySelectorAll('button');
-
-// All button
 All.onclick = () => {
     displaycards(cards);
     buttons.forEach(btn => btn.classList.remove('active'));
     All.classList.add('active');
 };
 
-// Commune button
 Commune.onclick = () => {
     let filter = cards.filter(card => card.rarity === "Commune");
     displaycards(filter);
@@ -113,7 +155,6 @@ Commune.onclick = () => {
     Commune.classList.add('active');
 };
 
-// Rare button
 Rare.onclick = () => {
     let filter = cards.filter(card => card.rarity === "Rare");
     displaycards(filter);
@@ -121,7 +162,6 @@ Rare.onclick = () => {
     Rare.classList.add('active');
 };
 
-// Epique button
 Epique.onclick = () => {
     let filter = cards.filter(card => card.rarity === "Epique");
     displaycards(filter);
@@ -129,7 +169,6 @@ Epique.onclick = () => {
     Epique.classList.add('active');
 };
 
-// Legendary button
 Legendary.onclick = () => {
     let filter = cards.filter(card => card.rarity === "Legendary");
     displaycards(filter);
@@ -141,20 +180,63 @@ Legendary.onclick = () => {
 
 
 
-let panniercontainer = document.getElementById("pannier")
-let pannier =[]
-let allbuttons = document.querySelectorAll('.ajouter');
-allbuttons.forEach(btn=>{
-    btn.onclick = ()=> {
-        btn.classList.add("active")
-    btn.disabled = true
-        let id = btn.getAttribute('data-id')
-        let select = cards.find(card => card.id == id) ?? {}
-        pannier.push(select)
-        localStorage.setItem("selectedcart",JSON.stringify(pannier))
-    }
-})
 
+
+
+
+
+
+
+//buttons (ajouter au pannier/favoris)
+function attachEventListeners() {
+    let allbuttons = document.querySelectorAll('.ajouter');
+    allbuttons.forEach(btn => {
+        btn.onclick = () => {
+            let id = btn.getAttribute('data-id');
+            let select = cards.find(card => card.id == id);
+            
+            
+            let exists = pannier.find(card=> card.id == id)
+            if(!exists){
+                pannier.push(select);
+                localStorage.setItem("selectedcart", JSON.stringify(pannier));
+                alert("Carte ajoutée au panier!");
+
+                // btn.style.toggle('active') 
+            }else{
+                alert("Cette carte est deja dans  pannier!")
+            }
+        }
+    });
+
+
+
+
+    let allfavorite = document.querySelectorAll('.favorite');
+    allfavorite.forEach(btn => {
+        btn.onclick = () => {
+            let id = btn.getAttribute('data-id');
+            let select = cards.find(card => card.id == id);
+            
+
+            // si exist
+            let exists = favorite.find(card => card.id == id);
+            
+            if (!exists) {
+                // Ajouter la carte
+                favorite.push(select);
+                localStorage.setItem("favorites", JSON.stringify(favorite));
+                
+                alert("Carte ajoutee aux favoris!");                
+                btn.classList.toggle('active');
+            } else {
+                alert("Cette carte est deja dans  favoris!");
+            }
+        }
+    });
+}
+
+displaycards(cards);
 
 
 

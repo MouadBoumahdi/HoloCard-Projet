@@ -28,11 +28,16 @@
     </ul>
     <a href="" class="Card-button">Card</a>
   </nav>
-
-  <section class="section1" style="margin: 60px 0; position: static;">
+  <div class="box" style="height: 50vh;"></div>
+  <section class="section1" id="section1-pannier" style="margin-bottom: 70px ;">
     <h1>PANNIER</h1>
     <h3>Placage d'une univers epic de strads et cartes à collectionner</h3>
   </section>
+
+
+
+
+
 
   <section id="pannier" class="pannier">
     <div id="all"></div>
@@ -41,14 +46,29 @@
       <h1 class="h1">Total: 0$</h1>
     </div>
   </section>
+
+
+
+  
 <script>
+let panniercontainer = document.getElementById("pannier")
 const all = document.getElementById("all");
 const total = document.querySelector(".h1");
 let pannier = JSON.parse(localStorage.getItem("selectedcart")) || [];
 
+if (pannier.length === 0) {
+            panniercontainer.innerHTML = `
+                <div style="text-align: center; color: white; padding: 50px; width: 100%;">
+                    <i class="fas fa-shopping-cart" style="font-size: 100px; color: #666;"></i>
+                    <h2 style="margin-top: 20px;">Aucune carte trouvée</h2>
+                    <p>Aucune carte  dans cette pannier</p>
+                    <a href="" class="Play-button" style="padding: 10px; font-size: 10px; ">Go to market</a>
+                </div>
+            `;
+              }else{
 // Show all cards
-pannier.forEach((card) => {
-  const div = document.createElement("div");
+pannier.forEach(card => {
+  let div = document.createElement("div");
   div.classList.add("part1-pannier");
 
   div.innerHTML = `
@@ -72,6 +92,7 @@ pannier.forEach((card) => {
 
   // increase quantity
   plus.addEventListener("click", () => {
+    // qte.textContent +=1;
     qte.textContent = parseInt(qte.textContent) + 1;
     updateTotal();
   });
@@ -81,7 +102,6 @@ pannier.forEach((card) => {
     let quantity = parseInt(qte.textContent) - 1;
 
     if (quantity <= 0) {
-      // remove from page
       div.remove();
 
       // remove this exact card by name
@@ -95,22 +115,20 @@ pannier.forEach((card) => {
 
     updateTotal();
   });
-});
+});}
 
-// calculate total
 function updateTotal() {
   let text_total = 0;
   const allItems = document.querySelectorAll(".part1-pannier");
 
   allItems.forEach((div, i) => {
     const qte = parseInt(div.querySelector(".qte").textContent);
-    const price = pannier[i]?.price || 0;
+    const price = pannier[i]?.price;
     text_total += price * qte;
   });
 
   total.textContent = `Total: ${text_total}$`;
 
-  // save pannier after updating
   localStorage.setItem("selectedcart", JSON.stringify(pannier));
 }
 
