@@ -1,20 +1,35 @@
-# 🧩 HoloCard Game Website
+📁 HoloCard-Projet/
+│
+├── 📂 images/                → Contient toutes les images du site
+│
+├── 📄 index.html             → Page d’accueil (Home)
+├── 📄 guide.html             → Page Guide (Apprendre à jouer)
+├── 📄 market.html            → Page Market (Marché des cartes)
+├── 📄 mydeck.html            → Page My Deck (Collection personnelle)
+├── 📄 favorite.html          → Page Favorites (Cartes ajoutées aux favoris)
+├── 📄 pannier.html           → Page Panier (Cartes à acheter)
+│
+├── 📄 style.css              → Style global du site
+├── 📄 market.css             → Styles spécifiques à la page Market
+├── 📄 guide.css              → Styles spécifiques à la page Guide
+├── 📄 pannier.css            → Styles spécifiques à la page Panier
+│
+└── 📄 script.js              → Script principal des interactions JavaScript
 
-Un projet web complet présentant un univers de jeu de cartes à collectionner.  
-Ce site permet de **acheter des cartes, permet a gerer ses favoris**, le tout avec une interface moderne réalisée en **HTML, CSS (Tailwind)** et **JavaScript**.
 
-## 🏗️ Structure du projet
+💡 Technologies utilisées
+HTML5 → Structure du contenu
 
-📂 images/ → Dossier contenant toutes les images utilisées dans le site
-📄 index.html → Page d’accueil (Home)
-📄 guide.html → Page Guide (Apprendre à jouer)
-📄 market.html → Page Market (Marché des cartes)
-📄 mydeck.html → Page My Deck (Collection personnelle)
-📄 favorite.html → Page Favorites (Cartes ajoutées aux favoris)
-📄 pannier.html → Page Panier (Cartes à acheter)
+CSS3 / Tailwind CSS → Mise en page moderne et responsive
 
-📄 style.css → Fichier principal de style global
-📄 market.css → Styles spécifiques à la page Market
-📄 guide.css → Styles spécifiques à la page Guide
-📄 pannier.css → Styles spécifiques à la page Panier
-📄 script.js → Script principal pour les interactions JS
+JavaScript  → Interactions dynamiques (favoris, panier, filtrage, etc.)
+
+Liens utiles
+🔗 Trello (Gestion des tâches)
+https://trello.com/b/PY28H4TX/kanban-template
+
+🎨 Figma (Maquette du design)
+https://www.figma.com/design/ZFXsyHR0WZ6AVMpLTIGaSl/Untitled?node-id=0-1
+
+💻 Version en ligne (GitHub Pages)
+https://mouadboumahdi.github.io/HoloCard-Projet/
