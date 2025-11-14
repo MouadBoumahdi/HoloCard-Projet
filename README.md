@@ -25,8 +25,11 @@ CSS3 / Tailwind CSS → Mise en page moderne et responsive
 JavaScript  → Interactions dynamiques (favoris, panier, filtrage, etc.)
 
 Liens utiles
-🔗 Trello (Gestion des tâches)
+🔗 Trello (Gestion des tâches) (brief4)
 https://trello.com/b/PY28H4TX/kanban-template
+
+🔗 Trello (Gestion des tâches) (brief5)
+https://trello.com/b/cn372dcd/card-battle-arena
 
 🎨 Figma (Maquette du design)
 https://www.figma.com/design/ZFXsyHR0WZ6AVMpLTIGaSl/Untitled?node-id=0-1

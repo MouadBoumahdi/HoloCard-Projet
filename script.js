@@ -166,7 +166,7 @@ Legendary.onclick = () => {
 
 
     function displaycards(listcards){
-    // cardscontainer.innerHTML = "";
+    cardscontainer.innerHTML = "";
     listcards.forEach(card => {
         const div = document.createElement("div");
         div.classList.add("card");
