@@ -18,31 +18,16 @@
         <ul id="nav-list">
             <li><a href="guide.html">Guide</a></li>
             <li><a href="market.html">Market</a></li>
-            <li><a href="#" class="Play-button">PLAY</a></li>
+            <li><a href="play.html" class="Play-button">PLAY</a></li>
             <li><a href="mydeck.html">My Deck</a></li>
             <li><a href="favorite.html">Favorite</a></li>
         </ul>
         <a href="pannier.html" class="Card-button">Card</a>
     </nav>
   
-    <div class="box1">
-        
-    </div>
-
-    <section class="section1" style="margin-bottom: 60px;">
-        <h1>STORE</h1>
-        <h3>Placage d une  univers epic de strads de et cartes a collectionner</h3>
-    </section>
+    
 
 
-
-    <section class="categories">
-        <button class="All active" id="All">TOUTES LES CARTES</button>
-        <button class="COMMUNE" id="Commune">⚪ COMMUNE</button>
-        <button class="RARE" id="Rare">💎 RARE</button>
-        <button class="EPIQUE" id="Epique">👑 EPIQUE</button>
-        <button class="LEGENDAIRE" id="Legendary">🔥 LEGENDAIRE</button>
-    </section>
 
 
     <section class="cards" id="cards">
@@ -70,7 +55,7 @@
         
     </section>
 
-
+<!-- 
     <footer>
         <h1>HoloCards</h1>
         <p class="paragraphe">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique excepturi porro ex id quas ratione laborum aliquam voluptas eum deleniti!</p>
@@ -81,8 +66,47 @@
         </ul>
 
         <p class="Copyright">© 2025 Nexus Cards. Tous droits réservés.</p>
-    </footer>
+    </footer> -->
     
 </body>
-<script src="script.js"></script>
+<script>
+    let cardscontainer = document.getElementById("cards")
+    let mydeck = JSON.parse(localStorage.getItem("mydeck")) 
+    cardscontainer.innerHTML = ""
+    function displaymydeck(listitem){
+        
+
+        listitem.forEach(card=>{
+
+    let div = document.createElement("div")
+        div.classList.add("card")
+
+        div.innerHTML = `
+            <div class="part1">
+                <h3>${card.name}</h3>
+                <img src="${card.image}">
+                <div class="details">
+                    <p class="title">${card.name}</p>
+                    <p class="paragraphe">${card.description}</p>
+                    <div class="atk-def">
+                        <span>ATK-${card.atk}/</span>
+                        <span>DEF-${card.def}</span>
+                    </div>
+                </div>
+            </div>
+
+          
+        `
+
+        cardscontainer.appendChild(div)
+        //   <div class="part2">
+        //         <p class ="price">${card.price}$</p>
+        //          <button class="Vendre"><i class="fas fa-shopping-cart" style="color: #ffffff;"></i>Ajouter au pannier</button>    
+        //     </div>
+    })
+    }
+
+    displaymydeck(mydeck)
+</script>
+
 </html>

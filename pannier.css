@@ -1,4 +1,10 @@
-
+#checkout{
+    padding: 0px 14px;
+    font-size: 25px;
+    border-radius: 5px;
+    background-color: green;
+    margin-left: 40%;
+}
  
 .pannier{
     display: flex;
@@ -34,6 +40,7 @@
 .part2-total{
     border: 2px solid #ff5060;
     border-radius: 7px;
+    width: 100%;
 }
 
 .buttons-pannier{
@@ -42,6 +49,7 @@
     align-items: center;
     margin-right: 10px;
 }
+
 
 .buttons-pannier button{
     padding: 0px 14px;

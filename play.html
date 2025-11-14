@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"/>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="play.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Pannier-page</title>
+</head>
+<body>
+
+    <!-- <audio src="mixkit-game-level-music-689.wav" id="introsound"></audio> -->
+    <audio src="mp3/mixkit-mechanical-crate-pick-up-3154.wav" id="attaksound"></audio>
+
+    <!-- <h2></h2> -->
+    <p class="attack-p">🔥</p>
+    <p class="defense-p">⚜️</p>
+    
+    <nav>
+        <h1><a href="index.html">HoloCards</a></h1>
+        <a href="" id="menu"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
+        <ul id="nav-list">
+            <li><a href="guide.html">Guide</a></li>
+            <li><a href="market.html">Market</a></li>
+            <li><a href="play.html" class="Play-button">PLAY</a></li>
+            <li><a href="mydeck.html">My Deck</a></li>
+            <li><a href="favorite.html">Favorite</a></li>
+        </ul>
+        <a href="pannier.html" class="Card-button">Card</a>
+    </nav>
+
+
+    <main id="playcontainer"> 
+         <section class="mydeck" id="mydeck">
+             <h1>My Deck</h1>
+             <!-- <div class="card" id="mydeck">
+                <h2>Title title sss</h2>
+                <img src="images/10691144.jpg" alt="">
+                <div class="detail">
+                    <span>Atk</span>
+                    <span>Def</span>
+                </div>
+             </div> -->
+        </section> 
+        <section class="arena">
+           <div class="adversaire">
+                <div class="box1"></div>
+                <div class="box2"></div>
+                <div class="box3"></div>
+                <div class="box4"></div>
+           </div>
+           <div class="mine">
+                <div class="box1"></div>
+                <div class="box2"></div>
+                <div class="box3"></div>
+                <div class="box4"></div>
+           </div>
+        </section>
+        <section class="main" id="main">
+             <!-- <div class="card-main">
+                <h3>Title</h3>
+                <img src="images/10691144.jpg">
+                <div class="detail-main">
+                    <span>Atk</span>
+                    <span>Def</span>
+                </div> -->
+             <!-- </div> -->
+        </section>
+        <div class="btns" id="btns">
+            <h1>choisir le mode </h1>
+            <button class="attack" id="attack">Attack</button>
+            <button class="defense" id="defense">Defense</button>
+        </div>
+    </main>
+
+
+    <script>
+        //call the cards from the deck and display it in page play 
+        // when i click some card in deck i want it to come from deck and displayon hand 
+        // when i drag from hand to arena 
+
+        let cardstoplay = JSON.parse(localStorage.getItem("mydeck"))
+        let cardstoplaydemo = [...cardstoplay]
+        // console.log(cardstoplaydemo)
+     
+        function shuffle(cards) {
+            let cardlength = cards.length;
+            let j;
+
+            while (--cardlength > 0) {
+                console.log("cardlength:", cardlength);
+                j = Math.floor(Math.random() * (cardlength + 1));
+                console.log("j:", j);
+
+                [cards[cardlength], cards[j]] = [cards[j], cards[cardlength]];
+            }
+
+            return cards; 
+        }
+
+        console.log(cardstoplaydemo)
+        cardstoplaydemo = shuffle(cardstoplaydemo);
+        console.log(cardstoplaydemo)
+        
+        // my deck
+        let mydeckcontainer = document.getElementById("mydeck")
+        
+        function displaycards(listitem){
+            mydeckcontainer.innerHTML ="<h1>My Deck</h1>"
+            listitem.forEach(card=>{
+                div = document.createElement("div")
+                div.classList.add("card")
+                    
+                div.innerHTML = `
+                    <h2>${card.name}</h2>
+                    <img src="${card.image}" alt="">
+                    <div class="detail">
+                        <span>ATK/${card.atk}</span>
+                        <span>DEF/${card.def}</span>
+                    </div>
+                `  
+                mydeckcontainer.appendChild(div)
+            })
+        }
+
+        displaycards(cardstoplaydemo)
+
+
+        // main
+        document.addEventListener('DOMContentLoaded', () => {
+            let handcards = [];
+            console.log(handcards);
+            
+            displayhand(handcards);
+            
+            mydeckcontainer.addEventListener('click', (e) => {
+                if(e.target.closest('.card')) {
+                    let selectedcard = cardstoplay.find(card=>card.name == e.target.closest(".card").querySelector("h2").textContent)
+                    
+                    console.log(selectedcard);
+                    if(main.children.length < 5 ) {
+                        cardstoplay = cardstoplay.filter(card=>card.name !== selectedcard.name)
+                        displaycards(cardstoplay)
+                        // localStorage.setItem('mydeck',JSON.stringify(cardstoplay))
+                        console.log(handcards)
+                        handcards.push(selectedcard);
+                        
+                        displayhand(handcards);
+                    } else {
+                        alert("choose another card and remember max is 5");
+                    }
+                } 
+            });
+
+            let atk_def = document.getElementById("btns")
+            let mode = atk_def.querySelectorAll('button')
+            console.log("button : ",mode)
+            let cardsadversaire = shuffle(cardstoplaydemo)
+            // console.log('adversaire', cardsadversaire)
+            let adversairecontainer = document.querySelector('.adversaire')
+
+            function zoneadversaire(cards){
+                let randommode = Math.floor(Math.random() * mode.length)
+               
+                let card = cardsadversaire.pop()
+                console.log("card: ",card)
+                console.log('adversaire', cardsadversaire)
+                let boxes = document.querySelectorAll('.adversaire > div')
+                let emptyBoxs = [];
+                boxes.forEach(box=>{
+                    if(box.children.length==0){
+                        emptyBoxs.push(box)
+                    }
+                })
+                let randombox = emptyBoxs[Math.floor(Math.random()*emptyBoxs.length)]
+                // console.log(randombox)
+
+                let adversairecard = document.createElement('div')
+                adversairecard.classList.add('card-main')
+
+                adversairecard.innerHTML = `
+                    <h3>${card.name}</h3>
+                    <img src="${card.image}">
+                    <div class="detail-main">
+                        <span>${card.atk} /</span>
+                        <span>${card.def}</span>
+                    </div>
+                `;
+                
+                randombox.appendChild(adversairecard)
+                if(!randommode){
+                    adversairecard.classList.add('landscape')
+                }else{
+                    adversairecard.classList.add('portrait')
+                }
+            }
+
+            let atkbtn = document.getElementById("attack")
+            let defbtn = document.getElementById("defense")
+            
+            function displayhand(listitem) {
+                main.innerHTML = "";
+                listitem.forEach(card => {
+                    let div = document.createElement("div");
+                    div.classList.add("card-main");
+                    div.draggable = true
+                    div.innerHTML = `
+                        <h3>${card.name}</h3>
+                        <img src="${card.image}">
+                        <div class="detail-main">
+                            <span>${card.atk} /</span>
+                            <span>${card.def}</span>
+                        </div>
+                    `;
+                    main.appendChild(div);
+
+                    // drag
+                    div.addEventListener("dragstart",()=>{
+                        div.classList.add("dragging")
+                    })
+
+                    div.addEventListener("dragend",()=>{
+                        div.classList.remove("dragging")
+                    })
+                    
+                    let audio = document.querySelector("audio")
+                    let mineboxs = document.querySelectorAll(".mine  div")
+                    mineboxs.forEach(box=>{
+                        box.addEventListener("dragover",(e)=>{
+                            e.preventDefault()
+                        })
+
+                        box.addEventListener('drop',(e)=>{
+                            if(box.children.length === 0){
+                                const draggedCard = document.querySelector(".dragging")
+                                console.log(draggedCard)
+                                handcards = handcards.filter(card=>card.name !== draggedCard.querySelector("h3").textContent)
+                                
+                                // displayhand(handcards)
+                                atk_def.style.display = 'block'
+                                atkbtn.onclick = ()=>{
+                                    box.appendChild(draggedCard)
+                                    draggedCard.classList.add("portrait")
+                                    atk_def.style.display = 'none'
+                                    document.querySelector(".attack-p").classList.add("active")
+                                    audio.play()
+                                    console.log(document.querySelector(".attack-p")) 
+                                    displayhand(handcards)
+                                    setTimeout(()=>{ 
+                                        document.getElementById('attaksound').play() 
+                                        document.querySelector(".attack-p").classList.remove("active")
+                                        zoneadversaire(cardsadversaire)
+                                    } ,1000)
+                                }
+
+                                defbtn.onclick= ()=>{
+                                    box.appendChild(draggedCard)
+                                    draggedCard.classList.add("landscape")
+                                    atk_def.style.display = 'none'
+                                    document.querySelector(".defense-p").classList.add("active")
+                                    audio.play()
+                                    setTimeout(()=>{
+                                        document.querySelector(".defense-p").classList.remove("active")
+                                        zoneadversaire(cardsadversaire)
+                                    },1000)
+                                }
+                            }
+                        })
+                    })
+                });
+            }
+        });
+    </script>
+</body>
+</html>

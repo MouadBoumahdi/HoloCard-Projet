@@ -15,13 +15,15 @@
   <title>Pannier-page</title>
 </head>
 <body>
-  <nav>
+
+  
+   <nav>
         <h1><a href="index.html">HoloCards</a></h1>
         <a href="" id="menu"><i class="fa-solid fa-bars" style="color: #ffffff;"></i></a>
         <ul id="nav-list">
             <li><a href="guide.html">Guide</a></li>
             <li><a href="market.html">Market</a></li>
-            <li><a href="#" class="Play-button">PLAY</a></li>
+            <li><a href="play.html" class="Play-button">PLAY</a></li>
             <li><a href="mydeck.html">My Deck</a></li>
             <li><a href="favorite.html">Favorite</a></li>
         </ul>
@@ -47,6 +49,7 @@
 
     <div class="part2-total">
       <h1 class="h1">Total: 0$</h1>
+      <button id="checkout">Checkout</button>
     </div>
   </section>
 
@@ -69,6 +72,7 @@ const all = document.getElementById("all");
 const total = document.querySelector(".h1");
 let pannier = JSON.parse(localStorage.getItem("selectedcart")) || [];
 
+// console.log(pannier)
 if (pannier.length === 0) {
             panniercontainer.innerHTML = `
                 <div style="text-align: center; color: white; padding: 50px; width: 100%;">
@@ -81,6 +85,11 @@ if (pannier.length === 0) {
               }else{
 // Show all cards
 pannier.forEach(card => {
+
+ if(card.quantite == 0){
+  card.quantite = 1;
+ }
+
   let div = document.createElement("div");
   div.classList.add("part1-pannier");
 
@@ -92,7 +101,7 @@ pannier.forEach(card => {
     </div>
     <div class="buttons-pannier ml-auto">
       <button class="moins">-</button>
-      <span class="qte">1</span>
+      <span class="qte">${card.quantite}</span>
       <button class="plus">+</button>
     </div>
   `;
@@ -102,11 +111,20 @@ pannier.forEach(card => {
   const qte = div.querySelector(".qte");
   const plus = div.querySelector(".plus");
   const moins = div.querySelector(".moins");
-
+ 
+ 
   // increase quantity
-  plus.addEventListener("click", () => {
-    // qte.textContent +=1;
-    qte.textContent = parseInt(qte.textContent) + 1;
+  plus.addEventListener("click", () => { 
+    let quantity = parseInt(qte.textContent)
+    if(quantity<10){
+      qte.textContent = quantity+1;
+        card.quantite = parseInt(qte.textContent)
+       updateTotal();
+        localStorage.setItem("selectedcart", JSON.stringify(pannier));
+    }else{
+      alert("max qte 10")
+    }
+    
     updateTotal();
   });
 
@@ -136,7 +154,7 @@ function updateTotal() {
 
   allItems.forEach((div, i) => {
     const qte = parseInt(div.querySelector(".qte").textContent);
-    const price = pannier[i]?.price;
+    const price = pannier[i].price;
     text_total += price * qte;
   });
 
@@ -147,6 +165,37 @@ function updateTotal() {
 
 // show total first
 updateTotal();
+
+let Checkout = document.getElementById("checkout")
+
+
+Checkout.addEventListener('click',()=>{
+  window.confirm("are you sure do you wanna but this?")
+   let mydeck = JSON.parse(localStorage.getItem("mydeck")) || [];
+   pannier.forEach(card=>{
+    mydeck.push(card)
+  })
+
+ localStorage.setItem("mydeck",JSON.stringify(mydeck))
+
+  
+  
+   panniercontainer.innerHTML = `
+                <div style="text-align: center; color: white; padding: 50px; width: 100%;">
+                    <i class="fas fa-shopping-cart" style="font-size: 100px; color: #666;"></i>
+                    <h2 style="margin-top: 20px;">Aucune carte trouvée</h2>
+                    <p>Aucune carte  dans cette pannier</p>
+                    <a href="" class="Play-button" style="padding: 10px; font-size: 10px; ">Go to market</a>
+                </div>
+            `;
+
+            localStorage.removeItem("selectedcart")
+    
+})
+
+
+
+
 </script>
 
 </body>
