@@ -82,32 +82,12 @@
 
 
     <script>
-        //call the cards from the deck and display it in page play 
-        // when i click some card in deck i want it to come from deck and displayon hand 
-        // when i drag from hand to arena 
-
         let cardstoplay = JSON.parse(localStorage.getItem("mydeck"))
-        let cardstoplaydemo = [...cardstoplay]
-        // console.log(cardstoplaydemo)
+       
      
-        function shuffle(cards) {
-            let cardlength = cards.length;
-            let j;
+        
 
-            while (--cardlength > 0) {
-                console.log("cardlength:", cardlength);
-                j = Math.floor(Math.random() * (cardlength + 1));
-                console.log("j:", j);
-
-                [cards[cardlength], cards[j]] = [cards[j], cards[cardlength]];
-            }
-
-            return cards; 
-        }
-
-        console.log(cardstoplaydemo)
-        cardstoplaydemo = shuffle(cardstoplaydemo);
-        console.log(cardstoplaydemo)
+        
         
         // my deck
         let mydeckcontainer = document.getElementById("mydeck")
@@ -130,7 +110,7 @@
             })
         }
 
-        displaycards(cardstoplaydemo)
+        displaycards(cardstoplay)
 
 
         // main
@@ -148,7 +128,6 @@
                     if(main.children.length < 5 ) {
                         cardstoplay = cardstoplay.filter(card=>card.name !== selectedcard.name)
                         displaycards(cardstoplay)
-                        // localStorage.setItem('mydeck',JSON.stringify(cardstoplay))
                         console.log(handcards)
                         handcards.push(selectedcard);
                         
@@ -162,45 +141,8 @@
             let atk_def = document.getElementById("btns")
             let mode = atk_def.querySelectorAll('button')
             console.log("button : ",mode)
-            let cardsadversaire = shuffle(cardstoplaydemo)
-            // console.log('adversaire', cardsadversaire)
-            let adversairecontainer = document.querySelector('.adversaire')
 
-            function zoneadversaire(cards){
-                let randommode = Math.floor(Math.random() * mode.length)
-               
-                let card = cardsadversaire.pop()
-                console.log("card: ",card)
-                console.log('adversaire', cardsadversaire)
-                let boxes = document.querySelectorAll('.adversaire > div')
-                let emptyBoxs = [];
-                boxes.forEach(box=>{
-                    if(box.children.length==0){
-                        emptyBoxs.push(box)
-                    }
-                })
-                let randombox = emptyBoxs[Math.floor(Math.random()*emptyBoxs.length)]
-                // console.log(randombox)
-
-                let adversairecard = document.createElement('div')
-                adversairecard.classList.add('card-main')
-
-                adversairecard.innerHTML = `
-                    <h3>${card.name}</h3>
-                    <img src="${card.image}">
-                    <div class="detail-main">
-                        <span>${card.atk} /</span>
-                        <span>${card.def}</span>
-                    </div>
-                `;
-                
-                randombox.appendChild(adversairecard)
-                if(!randommode){
-                    adversairecard.classList.add('landscape')
-                }else{
-                    adversairecard.classList.add('portrait')
-                }
-            }
+            
 
             let atkbtn = document.getElementById("attack")
             let defbtn = document.getElementById("defense")
@@ -256,7 +198,6 @@
                                     setTimeout(()=>{ 
                                         document.getElementById('attaksound').play() 
                                         document.querySelector(".attack-p").classList.remove("active")
-                                        zoneadversaire(cardsadversaire)
                                     } ,1000)
                                 }
 
@@ -268,7 +209,6 @@
                                     audio.play()
                                     setTimeout(()=>{
                                         document.querySelector(".defense-p").classList.remove("active")
-                                        zoneadversaire(cardsadversaire)
                                     },1000)
                                 }
                             }

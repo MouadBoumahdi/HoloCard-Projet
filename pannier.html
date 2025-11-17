@@ -66,6 +66,10 @@
         <p class="Copyright">© 2025 Nexus Cards. Tous droits réservés.</p>
     </footer>
   
+
+
+
+    
 <script>
 let panniercontainer = document.getElementById("pannier")
 const all = document.getElementById("all");
@@ -82,13 +86,13 @@ if (pannier.length === 0) {
                     <a href="" class="Play-button" style="padding: 10px; font-size: 10px; ">Go to market</a>
                 </div>
             `;
-              }else{
+}else{
 // Show all cards
 pannier.forEach(card => {
 
- if(card.quantite == 0){
-  card.quantite = 1;
- }
+  if(card.quantite == 0){
+    card.quantite = 1;
+  }
 
   let div = document.createElement("div");
   div.classList.add("part1-pannier");
@@ -170,7 +174,7 @@ let Checkout = document.getElementById("checkout")
 
 
 Checkout.addEventListener('click',()=>{
-  window.confirm("are you sure do you wanna but this?")
+  window.confirm("are you sure do you wanna buy this?")
    let mydeck = JSON.parse(localStorage.getItem("mydeck")) || [];
    pannier.forEach(card=>{
     mydeck.push(card)

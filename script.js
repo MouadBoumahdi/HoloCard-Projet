@@ -30,9 +30,6 @@ let navlist = document.getElementById('nav-list');
             slides[currentSlide].classList.add('active');
             dots[currentSlide].classList.add('active');
         }
-
-        
-
         setInterval(goToSlide, 2000);
 
 
@@ -63,6 +60,13 @@ let navlist = document.getElementById('nav-list');
 
 
 
+
+
+
+
+
+
+// partie cards
 const cards = [
   {id:1, name: "Blue-Eyes White", image: "images/10691144.jpg", atk: 3000, def: 2500, description: "Un dragon mythique doté d'une puissance incroyable et d'une aura glaciale.", price: 500, rarity: "Legendary", quantite: 0},
   {id:2, name: "Dark Magician", image: "images/72330894.jpg", atk: 2500, def: 2100, description: "Un magicien sombre maître des arcanes qui manipule la magie ancienne.", price: 450, rarity: "Epique", quantite: 0 },
@@ -77,14 +81,10 @@ const cards = [
 ];
 
 
-
 const cardscontainer = document.getElementById("cards");
-
 
 let favorite = JSON.parse(localStorage.getItem("favorites")) || [];
 let pannier = JSON.parse(localStorage.getItem("selectedcart")) || [];
-
-
 
 // filter
 let categories = document.querySelector('.categories');
@@ -98,15 +98,41 @@ let Epique = document.getElementById("Epique");
 let Legendary = document.getElementById("Legendary");
 
 
+function filter(list){
+    All.onclick = () => {
+        displaycards(list);
+        buttons.forEach(btn => btn.classList.remove('active'));
+        All.classList.add('active');
+    };
 
+    Commune.onclick = () => {
+        let filter = list.filter(card => card.rarity === "Commune");
+        displaycards(filter);
+        buttons.forEach(btn => btn.classList.remove('active'));
+        Commune.classList.add('active');
+    };
 
+    Rare.onclick = () => {
+        let filter = list.filter(card => card.rarity === "Rare");
+        displaycards(filter);
+        buttons.forEach(btn => btn.classList.remove('active'));
+        Rare.classList.add('active');
+    };
 
+    Epique.onclick = () => {
+        let filter = list.filter(card => card.rarity === "Epique");
+        displaycards(filter);
+        buttons.forEach(btn => btn.classList.remove('active'));
+        Epique.classList.add('active');
+    };
 
-
-
-
-
-
+    Legendary.onclick = () => {
+        let filter = list.filter(card => card.rarity === "Legendary");
+        displaycards(filter);
+        buttons.forEach(btn => btn.classList.remove('active'));
+        Legendary.classList.add('active');
+    };
+}
 
 
 
@@ -115,56 +141,10 @@ let Legendary = document.getElementById("Legendary");
 // market
 if(window.location.pathname.includes("market.html")){
 
+    // filter
+    filter(cards)
 
-
-
-
-
-
-// filter
-All.onclick = () => {
-    displaycards(cards);
-    buttons.forEach(btn => btn.classList.remove('active'));
-    All.classList.add('active');
-};
-
-Commune.onclick = () => {
-    let filter = cards.filter(card => card.rarity === "Commune");
-    displaycards(filter);
-    buttons.forEach(btn => btn.classList.remove('active'));
-    Commune.classList.add('active');
-};
-
-Rare.onclick = () => {
-    let filter = cards.filter(card => card.rarity === "Rare");
-    displaycards(filter);
-    buttons.forEach(btn => btn.classList.remove('active'));
-    Rare.classList.add('active');
-};
-
-Epique.onclick = () => {
-    let filter = cards.filter(card => card.rarity === "Epique");
-    displaycards(filter);
-    buttons.forEach(btn => btn.classList.remove('active'));
-    Epique.classList.add('active');
-};
-
-Legendary.onclick = () => {
-    let filter = cards.filter(card => card.rarity === "Legendary");
-    displaycards(filter);
-    buttons.forEach(btn => btn.classList.remove('active'));
-    Legendary.classList.add('active');
-};
-
-
-
-
-
-
-
-
-
-
+// display cards on market
     function displaycards(listcards){
     cardscontainer.innerHTML = "";
     listcards.forEach(card => {
@@ -248,10 +228,9 @@ Legendary.onclick = () => {
             }
         }
     });
-}
+    }
 
-
-displaycards(cards);
+    displaycards(cards);
 }
 
 
@@ -281,9 +260,8 @@ displaycards(cards);
 // favorite
 
 if(window.location.pathname.includes("favorite.html")){
-    // console.log(favorite);
 
-    // Fonction pour afficher les cartes favorites
+    // display cards pour page favorite
     function displaycards(listcard) {
         cardscontainer.innerHTML = "";
         
@@ -384,40 +362,10 @@ if(window.location.pathname.includes("favorite.html")){
 
     displaycards(favorite);
 
-    All.onclick = () => {
-        displaycards(favorite);
-        buttons.forEach(btn => btn.classList.remove('active'));
-        All.classList.add('active');
-    };
-
-    Commune.onclick = () => {
-        let filter = favorite.filter(card => card.rarity === "Commune");
-        displaycards(filter);
-        buttons.forEach(btn => btn.classList.remove('active'));
-        Commune.classList.add('active');
-    };
-
-    Rare.onclick = () => {
-        let filter = favorite.filter(card => card.rarity === "Rare");
-        displaycards(filter);
-        buttons.forEach(btn => btn.classList.remove('active'));
-        Rare.classList.add('active');
-    };
-
-    Epique.onclick = () => {
-        let filter = favorite.filter(card => card.rarity === "Epique");
-        displaycards(filter);
-        buttons.forEach(btn => btn.classList.remove('active'));
-        Epique.classList.add('active');
-    };
-
-    Legendary.onclick = () => {
-        let filter = favorite.filter(card => card.rarity === "Legendary");
-        displaycards(filter);
-        buttons.forEach(btn => btn.classList.remove('active'));
-        Legendary.classList.add('active');
-    };
+    filter(favorite)
 }
+
+
 
 
 
