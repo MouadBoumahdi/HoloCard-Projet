@@ -231,32 +231,7 @@ nav h1{
     padding: 3rem;
 }
 
-.slider-nav {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 1rem;
-    z-index: 10;
-}
 
-.slider-dot {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: rgba(253, 0, 0, 0.3);
-    transition: all 0.3s;
-    border: 2px solid transparent;
-}
-
-.slider-dot.active {
-    background: #ff5060;
-    width: 50px;
-    border-radius: 10px;
-    border-color: #ff5060;
-    box-shadow: 0 0 20px rgba(253, 0, 0, 0.8);
-}
 
 @media (max-width: 768px) {
     

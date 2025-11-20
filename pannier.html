@@ -123,7 +123,7 @@ pannier.forEach(card => {
     if(quantity<10){
       qte.textContent = quantity+1;
         card.quantite = parseInt(qte.textContent)
-       updateTotal();
+        updateTotal();
         localStorage.setItem("selectedcart", JSON.stringify(pannier));
     }else{
       alert("max qte 10")

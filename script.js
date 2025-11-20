@@ -14,13 +14,10 @@ let navlist = document.getElementById('nav-list');
 //    Slider
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.slider-dot');
 
         console.log(slides.length)
-        console.log(dots)
         function goToSlide() {
             slides[currentSlide].classList.remove('active');
-            dots[currentSlide].classList.remove('active');
             
         currentSlide++;
         if(currentSlide>=slides.length){
@@ -28,7 +25,6 @@ let navlist = document.getElementById('nav-list');
         }
             
             slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
         }
         setInterval(goToSlide, 2000);
 
@@ -79,6 +75,27 @@ const cards = [
   {id:9, name: "Slifer the Sky", image: "images/64475743.jpg", atk: 5000, def: 5000, description: "Un dragon divin qui rugit du ciel, frappant ses ennemis de la foudre.", price: 1200, rarity: "Rare", quantite: 0 },
   {id:10, name: "Kuriboh", image: "images/72330894.jpg", atk: 300, def: 200, description: "Une petite créature courageuse qui se sacrifie pour protéger son maître.", price: 80, rarity: "Commune", quantite: 0 }
 ];
+
+
+
+let cardpluscher;
+
+let max = 0 
+cards.forEach(c=>{
+    if(c.price>max){
+        max = c.price
+    }
+})
+
+console.log(max)
+cardpluscher = cards.find(c=>c.price == max)
+
+console.log(cardpluscher)
+
+
+
+
+
 
 
 const cardscontainer = document.getElementById("cards");
@@ -179,7 +196,10 @@ if(window.location.pathname.includes("market.html")){
         </div>
         `;
 
+
+
         cardscontainer.appendChild(div);
+       
     });
 
     let allbuttons = document.querySelectorAll('.ajouter');
@@ -222,7 +242,7 @@ if(window.location.pathname.includes("market.html")){
                 localStorage.setItem("favorites", JSON.stringify(favorite));
                 
                 alert("Carte ajoutee aux favoris!");                
-                btn.classList.toggle('active');
+                btn.classList.add('active');
             } else {
                 alert("Cette carte est deja dans  favoris!");
             }
@@ -307,6 +327,7 @@ if(window.location.pathname.includes("favorite.html")){
             </div>
             `;
 
+
             cardscontainer.appendChild(div);
         });
 
@@ -378,4 +399,42 @@ if(window.location.pathname.includes("favorite.html")){
 
 
 
+
+
+
+
+
+
+
+
+
+// function display(){
+    
+
+
+// console.log(cardsss)
+// console.log(names)
+// function getcardbyname(name){
+//     let cardsss = document.querySelectorAll(".card")
+    // cardsss.forEach(c=>{
+    //     let h3 = c.querySelector("h3").textContent
+    //     console.log(h3)
+    // })
+
+    // cardsss = cardsss.filter(c=>c.h3 == name)
+    // console.log(cardsss)
+
+// let newcardss = [];
+//     cardsss.forEach(c=>{
+//         let h3 = c.querySelector("h3").textContent
+//         if(name == h3){
+//             newcardss.push(c)
+//         }
+//     })
+//             console.log(newcardss)
+            // displaycards(newcardss)
+
+// }
+// let n = "Blue-Eyes White"
+// getcardbyname(n)
 
